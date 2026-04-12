@@ -6,16 +6,22 @@ transaction="020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f9548
 # decode transaction
 decoded_tx=$(bitcoin-cli -regtest decoderawtransaction "$transaction")
 
-# witness redeem script using positional indexing (last element of scriptSig asm)
+# extract witness redeem script using positional indexing (last element of scriptSig asm)
 witness_redeem_script=$(echo "$decoded_tx" | jq -r '.vin[0].scriptSig.asm | split(" ") | .[-1]')
 
-#  witness redeem script hasheds(SHA256 + RIPEMD160) to get P2SH script hash
-script_hash=$(echo -n "$witness_redeem_script" | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160 -hex | awk '{print $2}')
+# redeemScript with SHA256 only for witness script (P2WSH)
+witness_script_hash=$(echo -n "$witness_redeem_script" | xxd -r -p | openssl dgst -sha256 -hex | awk '{print $2}')
 
-#  P2SH scriptPubKey (OP_HASH160 + hash + OP_EQUAL)
-p2sh_script="a914${script_hash}87"
+# create witness script: OP_0 <32-byte-sha256-hash>
+witness_script="0020${witness_script_hash}"
 
-# decode the P2SH script and  address
+#  witness script hash with OP_HASH160 (SHA256 + RIPEMD160) 
+p2sh_hash=$(echo -n "$witness_script" | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160 -hex | awk '{print $2}')
+
+#  scriptPubKey (OP_HASH160 + hash + OP_EQUAL)
+p2sh_script="a914${p2sh_hash}87"
+
+# decode  script and get address
 address=$(bitcoin-cli -regtest decodescript "$p2sh_script" | jq -r '.address')
 
 echo "$address"
