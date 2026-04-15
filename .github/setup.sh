@@ -10,10 +10,3 @@ rpcport=18332
 EOF
 
 echo $(bitcoin-cli --version)
-
-# Build and install btcdeb
-cd $PWD/btcdeb
-./autogen.sh
-./configure
-make
-make install
