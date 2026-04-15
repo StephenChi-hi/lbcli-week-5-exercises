@@ -7,4 +7,4 @@ blocks=150
 #  pubkey hash from public key (SHA256 + RIPEMD160)
 pubKeyHash=$(echo -n "$publicKey" | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160 -hex  | awk '{print $2}')
 
-btcdeb/btcc $blocks OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 $pubKeyHash OP_EQUALVERIFY OP_CHECKSIG
+btcc $blocks OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 $pubKeyHash OP_EQUALVERIFY OP_CHECKSIG
