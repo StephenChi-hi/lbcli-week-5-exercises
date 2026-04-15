@@ -9,8 +9,9 @@ pubKeyHash=$(echo -n "$publicKey" | xxd -r -p | openssl dgst -sha256 -binary | o
 
 # 6 months = 180 days in 512-second units = 30375 = 0x76a7
 # bit 22 set, value 0x400000: 0x40 | (0x76a7) as 3 bytes in LE = 0xa7 0x76 0x40
-time_value_hex="0xa77640"
+time_value_hex="a77640"
 
-# then <time_value> OP_CHECKSEQUENCEVERIFY OP_DROP  OP_DUP  OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
-btcc $time_value_hex OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 $pubKeyHash OP_EQUALVERIFY OP_CHECKSIG
+# OP_CHECKSEQUENCEVERIFY=b2, OP_DROP=75, OP_DUP=76, OP_HASH160=a9, OP_EQUALVERIFY=88, OP_CHECKSIG=ac
+# Script: <time_value> OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
+echo "03${time_value_hex}b27576a914${pubKeyHash}88ac"
 
