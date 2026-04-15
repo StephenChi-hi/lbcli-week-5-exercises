@@ -11,6 +11,6 @@ pubKeyHash=$(echo -n "$publicKey" | xxd -r -p | openssl dgst -sha256 -binary | o
 # bit 22 set, value 0x400000: 0x40 | (0x76a7) as 3 bytes in LE = 0xa7 0x76 0x40
 time_value_hex="0xa77640"
 
-# then <time_value> OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
-btcc $time_value_hex OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 $pubKeyHash OP_EQUALVERIFY OP_CHECKSIG
+# then <time_value> OP_CHECKSEQUENCEVERIFY OP_DROP  OP_DUP  OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
+btcdeb/btcc $time_value_hex OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 $pubKeyHash OP_EQUALVERIFY OP_CHECKSIG
 

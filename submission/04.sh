@@ -10,4 +10,4 @@ pubKeyHash=$(echo -n "$publicKey" | xxd -r -p | openssl dgst -sha256 -binary | o
 
 
 
-btcc $timestamp OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 $pubKeyHash OP_EQUALVERIFY OP_CHECKSIG
+btcdeb/btcc $timestamp OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 $pubKeyHash OP_EQUALVERIFY OP_CHECKSIG

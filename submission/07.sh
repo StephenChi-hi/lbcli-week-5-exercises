@@ -8,5 +8,5 @@ publicKey1="02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191"
 publicKey2="02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3"
 publicKey3="02e3af28965693b9ce1228f9d468149b831d6a0540b25e8a9900f71372c11fb277"
 
-# Use btcc to serialize the 2-of-3 multisig script
-btcc 2 $publicKey1 $publicKey2 $publicKey3 3 OP_CHECKMULTISIG
+# using btcc to serialize the 2-of-3 multisig scripts
+btcdeb/btcc 2 $publicKey1 $publicKey2 $publicKey3 3 OP_CHECKMULTISIG
