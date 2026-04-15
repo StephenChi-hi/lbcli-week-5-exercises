@@ -12,4 +12,4 @@ timestamp_hex=$(printf '%08x' $timestamp | sed 's/\(..\)\(..\)\(..\)\(..\)/\4\3\
 
 # OP_CHECKLOCKTIMEVERIFY=b1, OP_DROP=75, OP_DUP=76, OP_HASH160=a9, OP_EQUALVERIFY=88, OP_CHECKSIG=ac
 # Script: <timestamp> OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubkeyhash> OP_EQUALVERIFY OP_CHECKSIG
-echo "0420${timestamp_hex}b17576a914${pubKeyHash}88ac"
+echo "04${timestamp_hex}b17576a914${pubKeyHash}88ac"
